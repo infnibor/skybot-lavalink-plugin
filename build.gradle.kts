@@ -19,6 +19,8 @@ allprojects {
     repositories {
         mavenCentral()
         mavenLocal()
+        maven("https://maven.pcreators.pl/releases")
+        maven("https://maven.pcreators.pl/snapshots")
         maven("https://m2.duncte123.dev/releases")
         maven("https://m2.dv8tion.net/releases")
         maven("https://maven.lavalink.dev/releases")

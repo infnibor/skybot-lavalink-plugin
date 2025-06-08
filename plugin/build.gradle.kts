@@ -64,12 +64,20 @@ data class Version(val major: Int, val minor: Int, val patch: Int) {
 }
 
 publishing {
+    publications {
+        create<MavenPublication>("mavenJava") {
+            from(components["java"])
+            groupId = "com.infnibor"
+            artifactId = archivesBaseName
+            version = "$version"
+        }
+    }
     repositories {
         maven {
             url = if (preRelease) {
-                uri("https://maven.lavalink.dev/snapshots")
+                uri("https://maven.pcreators.pl/snapshots")
             } else {
-                uri("https://maven.lavalink.dev/releases")
+                uri("https://maven.pcreators.pl/releases")
             }
             credentials {
                 username = System.getenv("USERNAME")
@@ -84,7 +92,7 @@ publishing {
 
 githubRelease {
     token(System.getenv("GITHUB_TOKEN"))
-    owner("DuncteBot")
+    owner("infnibor")
     repo("skybot-lavalink-plugin")
     targetCommitish(System.getenv("RELEASE_TARGET"))
     releaseAssets(tasks.shadowJar.get().outputs.files.toList())
@@ -99,7 +107,7 @@ githubRelease {
             |```yml
             |lavalink:
             |    plugins:
-            |        - dependency: "com.dunctebot:skybot-lavalink-plugin:$verName"
+            |        - dependency: "com.infnibor:skybot-lavalink-plugin:$verName"
             |          snapshot: true
             |```
         """.trimMargin())
